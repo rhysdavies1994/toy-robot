@@ -14,7 +14,7 @@ class Grid
 
     if is_negative or is_greater_than_dimensions
       result = false
-      puts "Outside of Grid, Robot will not be moved or placed on table"
+      puts "[#{x},#{y}] is Outside of Grid, Robot will not be moved or placed on table"
     else
       result = true
     end

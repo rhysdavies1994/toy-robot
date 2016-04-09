@@ -24,6 +24,16 @@ class Robot
     if match = command.match(/PLACE (\d+),(\d+),(NORTH|EAST|SOUTH|WEST)/)
       x, y, direction = match.captures
       place(x, y, direction)
+    elsif @on_grid
+      if match = command.match(/MOVE/) and
+          move()
+      elsif match = command.match(/LEFT/) and @on_grid
+        left()
+      elsif match = command.match(/RIGHT/) and @on_grid
+        right()
+      elsif match = command.match(/REPORT/) and @on_grid
+        report()
+      end
     end
   end
 
@@ -83,7 +93,7 @@ class Robot
   end
 
   def directions
-    ANGLES.keys.map{ |key| key.to_s.upcase  }
+    ANGLES.keys.map { |key| key.to_s.upcase }
   end
 
   # Select angle to be facing, given direction
