@@ -31,4 +31,21 @@ describe Robot, ".place" do
     end
   end
 
+  context "with position outside of a 5x5 grid and" do
+    positions = [
+        {x: -1, y: -1},
+        {x: -2, y: 4},
+        {x: 2, y: -4}
+    ]
+    positions.each do |position|
+    x, y = position[:x], position[:y]
+
+      it "returns error message" do
+        expect {robot.place(x,y, "NORTH")}
+            .to output("Outside of Grid, Robot will not be moved or placed on table").to_stdout
+      end
+    end
+  end
+
 end
+
