@@ -3,9 +3,9 @@ require 'byebug'
 class Grid
   attr_accessor :width, :height
 
-  def initialize
-    @width = 5
-    @height = 5
+  def initialize(width=5, height=5)
+    @width = width
+    @height = height
   end
 
   def has_point(x, y)
@@ -14,7 +14,7 @@ class Grid
 
     if is_negative or is_greater_than_dimensions
       result = false
-      print "Outside of Grid, Robot will not be moved or placed on table"
+      puts "Outside of Grid, Robot will not be moved or placed on table"
     else
       result = true
     end
