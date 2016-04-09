@@ -6,10 +6,10 @@ class Robot
   ANGLES = {north: 0, east: 90, south: 180, west: 270}
 
   # Initialize in South West and Facing North
-  def initialize
-    @x = 0
-    @y = 0
-    @angle = 0
+  def initialize(x=0, y=0, direction="NORTH")
+    @x = x
+    @y = y
+    @angle = angle_of(direction)
     @grid = Grid.new
   end
 
@@ -22,7 +22,7 @@ class Robot
   # Place robot at certain position and direction
   def place(x, y, direction)
 
-    if @grid.has_point(x,y)
+    if @grid.has_point(x, y)
       @x, @y = x, y
       @angle = angle_of(direction)
     end
@@ -42,12 +42,23 @@ class Robot
       x -= 1
     end
 
-    @x, @y = x, y if @grid.has_point(x,y)
+    @x, @y = x, y if @grid.has_point(x, y)
 
     return [@x, @y]
   end
 
-    # Return robots position as single array
+  def left
+    self.angle -= 90
+
+    return direction
+  end
+
+  def right
+    self.angle += 90
+    return direction
+  end
+
+  # Return robots position as single array
   def position
     [x, y]
   end
