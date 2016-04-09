@@ -22,48 +22,49 @@ class Robot
 
   # Place robot at certain position and direction
   def place(x, y, direction)
-
     if @grid.has_point(x, y)
       @x, @y = x, y
       @angle = angle_of(direction)
       @on_grid = true
     end
-
   end
 
+  # Move robot 1 space, moving in its current direction if on grid
   def move
-    x = @x
-    y = @y
-    if self.direction == "NORTH"
-      y += 1
-    elsif self.direction == "EAST"
-      x += 1
-    elsif self.direction == "SOUTH"
-      y -= 1
-    else
-      x -= 1
+    if (@on_grid)
+      x = @x
+      y = @y
+
+      if self.direction == "NORTH"
+        y += 1
+      elsif self.direction == "EAST"
+        x += 1
+      elsif self.direction == "SOUTH"
+        y -= 1
+      else
+        x -= 1
+      end
+
+      @x, @y = x, y if @grid.has_point(x, y)
     end
-
-    @x, @y = x, y if @grid.has_point(x, y)
-
     return [@x, @y]
   end
 
+  # Rotate robot 90 degrees anticlockwise (-90) if on grid
   def left
-    self.angle -= 90
-
+    self.angle -= 90 if @on_grid
     return direction
   end
 
+  # Rotate robot 90 degrees clockwise (+90) if on grid
   def right
-    self.angle += 90
+    self.angle += 90 if @on_grid
     return direction
   end
 
+  # Report robots current position and direction if on grid
   def report
-    if(@on_grid)
-      puts "#{x},#{y},#{direction}"
-    end
+    puts "#{x},#{y},#{direction}" if @on_grid
   end
 
   # Return robots position as single array

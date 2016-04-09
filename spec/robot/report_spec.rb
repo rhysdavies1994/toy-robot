@@ -1,7 +1,6 @@
 require 'robot'
 
 RSpec.describe Robot, ".report" do
-  subject(:robot) { Robot.new }
   context "when robot is inside of grid" do
     it "responds with position and direction" do
       robot = Robot.new
