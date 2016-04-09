@@ -29,7 +29,25 @@ class Robot
 
   end
 
-  # Return robots position as single array
+  def move
+    x = @x
+    y = @y
+    if self.direction == "NORTH"
+      y += 1
+    elsif self.direction == "EAST"
+      x += 1
+    elsif self.direction == "SOUTH"
+      y -= 1
+    else
+      x -= 1
+    end
+
+    @x, @y = x, y if @grid.has_point(x,y)
+
+    return [@x, @y]
+  end
+
+    # Return robots position as single array
   def position
     [x, y]
   end
@@ -57,4 +75,5 @@ class Robot
     direction = direction.to_s.upcase
     return direction
   end
+
 end
