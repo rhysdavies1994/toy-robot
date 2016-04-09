@@ -11,7 +11,8 @@ RSpec.describe Robot, ".left" do
   directions.each do |direction|
     context "when facing #{direction[:current]}" do
       it "switches robot to facing #{direction[:result]}" do
-        robot = Robot.new(0, 0, direction[:current])
+        robot = Robot.new
+        robot.place(0, 0, direction[:current])
         expect(robot.left).to eq(direction[:result])
       end
     end
@@ -28,7 +29,8 @@ RSpec.describe Robot, ".right" do
   directions.each do |direction|
     context "when facing #{direction[:current]}" do
       it "switches robot to facing #{direction[:result]}" do
-        robot = Robot.new(0, 0, direction[:current])
+        robot = Robot.new
+        robot.place(0, 0, direction[:current])
         expect(robot.right).to eq(direction[:result])
       end
     end
