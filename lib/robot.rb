@@ -1,8 +1,8 @@
-require 'grid'
+require './lib/grid'
 
 class Robot
-  attr_accessor :x, :y, :grid, :on_grid
-  attr_reader :angle
+  attr_accessor :grid, :on_grid
+  attr_reader :x, :y, :angle
   ANGLES = {north: 0, east: 90, south: 180, west: 270}
 
   # Initialize in South West and Facing North
@@ -20,10 +20,20 @@ class Robot
     @angle = angle % 360
   end
 
+  def process(command)
+    if match = command.match(/PLACE (\d+),(\d+),(NORTH|EAST|SOUTH|WEST)/)
+      x, y, direction = match.captures
+      place(x, y, direction)
+    end
+  end
+
   # Place robot at certain position and direction
   def place(x, y, direction)
+    x, y = x.to_i, y.to_i
+
     if @grid.has_point(x, y)
-      @x, @y = x, y
+      @x = x
+      @y = y
       @angle = angle_of(direction)
       @on_grid = true
     end
@@ -70,6 +80,10 @@ class Robot
   # Return robots position as single array
   def position
     [x, y]
+  end
+
+  def directions
+    ANGLES.keys.map{ |key| key.to_s.upcase  }
   end
 
   # Select angle to be facing, given direction
