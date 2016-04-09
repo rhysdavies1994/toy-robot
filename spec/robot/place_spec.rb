@@ -42,7 +42,7 @@ describe Robot, ".place" do
 
       it "returns error message" do
         expect {robot.place(x,y, "NORTH")}
-            .to output("Outside of Grid, Robot will not be moved or placed on table\n").to_stdout
+            .to output(/Outside of Grid/).to_stdout
       end
     end
   end

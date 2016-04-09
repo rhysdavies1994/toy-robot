@@ -1,7 +1,7 @@
 require 'grid'
 
 class Robot
-  attr_accessor :x, :y, :grid
+  attr_accessor :x, :y, :grid, :on_grid
   attr_reader :angle
   ANGLES = {north: 0, east: 90, south: 180, west: 270}
 
@@ -11,6 +11,7 @@ class Robot
     @y = y
     @angle = angle_of(direction)
     @grid = Grid.new
+    @on_grid = false
   end
 
   def angle=(angle)
@@ -25,6 +26,7 @@ class Robot
     if @grid.has_point(x, y)
       @x, @y = x, y
       @angle = angle_of(direction)
+      @on_grid = true
     end
 
   end
@@ -56,6 +58,12 @@ class Robot
   def right
     self.angle += 90
     return direction
+  end
+
+  def report
+    if(@on_grid)
+      puts "#{x},#{y},#{direction}"
+    end
   end
 
   # Return robots position as single array
