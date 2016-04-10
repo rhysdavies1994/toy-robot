@@ -1,4 +1,4 @@
-require './lib/grid'
+require_relative 'grid'
 
 class Robot
   attr_accessor :grid, :on_grid
@@ -14,24 +14,26 @@ class Robot
     @on_grid = false
   end
 
+  # Custom setter for angle, keep between 0 to 360 degrees
   def angle=(angle)
     # Use modulo operator to keep angle within 360 degrees
     # Also turns negatives into correct value, e.g -90 % 360 = 270
     @angle = angle % 360
   end
 
+  # Receive a string and process into one command
   def process(command)
     if match = command.match(/PLACE (\d+),(\d+),(NORTH|EAST|SOUTH|WEST)/)
       x, y, direction = match.captures
       place(x, y, direction)
     elsif @on_grid
-      if match = command.match(/MOVE/) and
+      if match = command.match(/MOVE/)
           move()
-      elsif match = command.match(/LEFT/) and @on_grid
+      elsif match = command.match(/LEFT/)
         left()
-      elsif match = command.match(/RIGHT/) and @on_grid
+      elsif match = command.match(/RIGHT/)
         right()
-      elsif match = command.match(/REPORT/) and @on_grid
+      elsif match = command.match(/REPORT/)
         report()
       end
     end

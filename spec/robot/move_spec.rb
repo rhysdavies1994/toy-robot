@@ -1,7 +1,6 @@
 require 'robot'
 
 RSpec.describe Robot, ".move" do
-
   context "to position inside of 5x5 grid" do
     # Test multiple positions with loop
     positions = [

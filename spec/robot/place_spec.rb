@@ -32,6 +32,7 @@ describe Robot, ".place" do
   end
 
   context "with position outside of a 5x5 grid and" do
+    # Test multiple positions with loop
     positions = [
         {x: -1, y: -1},
         {x: -2, y: 4},

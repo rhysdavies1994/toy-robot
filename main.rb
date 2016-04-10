@@ -1,5 +1,5 @@
-require './lib/file_processor'
-require './lib/robot'
+require_relative 'lib/file_processor'
+require_relative 'lib/robot'
 
 toy_robot = Robot.new
 
