@@ -31,6 +31,13 @@ describe Robot, ".place" do
     end
   end
 
+  context "with invalid direction" do
+    it "ignores command" do
+      robot.place(1, 2, "RANDOM")
+      expect(robot.on_grid).to eq(false)
+    end
+  end
+
   context "with position outside of a 5x5 grid and" do
     # Test multiple positions with loop
     positions = [

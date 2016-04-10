@@ -21,19 +21,22 @@ class Robot
     @angle = angle % 360
   end
 
-  # Receive a string and process into one command
+  # Receive a string and process into one command per line
+  # will not process unless whole line is valid
   def process(command)
-    if match = command.match(/PLACE (\d+),(\d+),(NORTH|EAST|SOUTH|WEST)/)
+    if match = command.match(/^PLACE (\d+),(\d+),(NORTH|EAST|SOUTH|WEST)$/)
       x, y, direction = match.captures
       place(x, y, direction)
+
     elsif @on_grid
-      if match = command.match(/MOVE/)
-          move()
-      elsif match = command.match(/LEFT/)
+      #Only run below commands if already placed on grid
+      if match = command.match(/^MOVE\n$/)
+        move()
+      elsif match = command.match(/^LEFT\n$/)
         left()
-      elsif match = command.match(/RIGHT/)
+      elsif match = command.match(/^RIGHT\n$/)
         right()
-      elsif match = command.match(/REPORT/)
+      elsif match = command.match(/^REPORT\n$/)
         report()
       end
     end
@@ -43,7 +46,7 @@ class Robot
   def place(x, y, direction)
     x, y = x.to_i, y.to_i
 
-    if @grid.has_point(x, y)
+    if @grid.has_point(x, y) and directions.include?(direction)
       @x = x
       @y = y
       @angle = angle_of(direction)
@@ -57,14 +60,15 @@ class Robot
       x = @x
       y = @y
 
-      if self.direction == "NORTH"
-        y += 1
-      elsif self.direction == "EAST"
-        x += 1
-      elsif self.direction == "SOUTH"
-        y -= 1
-      else
-        x -= 1
+      case self.direction
+        when "NORTH"
+          y += 1
+        when "EAST"
+          x += 1
+        when "SOUTH"
+          y -= 1
+        when "WEST"
+          x -= 1
       end
 
       @x, @y = x, y if @grid.has_point(x, y)
