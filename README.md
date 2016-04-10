@@ -1,8 +1,14 @@
 # toy-robot
 
-Code problem details:
+##Usage: 
+to run simulator with test_file.txt: **ruby ./main.rb test_file.txt**
+
+to run tests: **rspec**
 
 -----------
+
+Code problem details:
+
 Toy Robot Simulator
 
 ##### Description:
