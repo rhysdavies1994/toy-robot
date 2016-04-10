@@ -1,6 +1,8 @@
 # toy-robot
 
 ##Usage: 
+before running please run: **bundle install**
+
 to run simulator with test_file.txt: **ruby ./main.rb test_file.txt**
 
 to run tests: **rspec**
